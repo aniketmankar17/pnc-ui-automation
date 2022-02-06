@@ -22,83 +22,113 @@ public class CommonMethods {
 	}
 	
 	public List<WebElement> getListOfElements(By locator) throws Exception {
-		return wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
+		List<WebElement> elements = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
+		return elements;
 	}
 	
 	public boolean isElementExist(By locator) throws Exception {
-		return !getListOfElements(locator).isEmpty();
+		List<WebElement> elements = getListOfElements(locator);
+		return !elements.isEmpty();
 	}
 	
 	public void click(WebElement element) throws Exception {
-		wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+		element = wait.until(ExpectedConditions.elementToBeClickable(element));
+		element.click();
 	}
 	
 	public void click(By locator) throws Exception {
-		wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
+		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
+		element.click();
 	}
 	
 	public void clickWithJs(By locator) throws Exception {
-		jsExecutor.executeScript("arguments[0].click();", wait.until(ExpectedConditions.presenceOfElementLocated(locator)));
+		WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		jsExecutor.executeScript("arguments[0].click();", element);
 	}
 	
 	public void clickWithJs(WebElement element) throws Exception {
-		jsExecutor.executeScript("arguments[0].click();", wait.until(ExpectedConditions.visibilityOf(element)));
+		element = wait.until(ExpectedConditions.visibilityOf(element));
+		jsExecutor.executeScript("arguments[0].click();", element);
 	}
 	
 	public void clear(WebElement element) throws Exception {
-		wait.until(ExpectedConditions.visibilityOf(element)).clear();
+		element = wait.until(ExpectedConditions.visibilityOf(element));
+		element.clear();
 	}
 	
 	public void clear(By locator) throws Exception {
-		wait.until(ExpectedConditions.presenceOfElementLocated(locator)).clear();
+		WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		element.clear();
 	}
 	
 	public void enterText(WebElement element, String text) throws Exception {
-		wait.until(ExpectedConditions.visibilityOf(element)).sendKeys(text);
+		element = wait.until(ExpectedConditions.visibilityOf(element));
+		element.sendKeys(text);
 	}
 	
 	public void enterText(By locator, String text) throws Exception {
-		wait.until(ExpectedConditions.presenceOfElementLocated(locator)).sendKeys(text);
+		WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		element.sendKeys(text);
 	}
 	
 	public String getText(WebElement element) {
-		return wait.until(ExpectedConditions.visibilityOf(element)).getText();
+		element = wait.until(ExpectedConditions.visibilityOf(element));
+		return element.getText();
 	}
 	
 	public String getText(By locator) {
-		return wait.until(ExpectedConditions.presenceOfElementLocated(locator)).getText();
+		WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		return element.getText();
 	}
 	
 	public String getAttribute(WebElement element, String attribute) {
-		return wait.until(ExpectedConditions.visibilityOf(element)).getAttribute(attribute);
+		element = wait.until(ExpectedConditions.visibilityOf(element));
+		return element.getAttribute(attribute);
 	}
 	
 	public String getAttribute(By locator, String attribute) {
-		return wait.until(ExpectedConditions.presenceOfElementLocated(locator)).getAttribute(attribute);
+		WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		return element.getAttribute(attribute);
 	}
 	
 	public String getCssValue(WebElement element, String propertyName) {
-		return wait.until(ExpectedConditions.visibilityOf(element)).getCssValue(propertyName);
+		element = wait.until(ExpectedConditions.visibilityOf(element));
+		return element.getCssValue(propertyName);
 	}
 	
 	public String getCssValue(By locator, String propertyName) {
-		return wait.until(ExpectedConditions.presenceOfElementLocated(locator)).getCssValue(propertyName);
+		WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		return element.getCssValue(propertyName);
 	}
 	
 	public boolean isDisplayed(WebElement element) {
-		return wait.until(ExpectedConditions.visibilityOf(element)).isDisplayed();
+		element = wait.until(ExpectedConditions.visibilityOf(element));
+		return element.isDisplayed();
 	}
 	
 	public boolean isDisplayed(By locator) {
-		return wait.until(ExpectedConditions.presenceOfElementLocated(locator)).isDisplayed();
+		WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		return element.isDisplayed();
 	}
 	
 	public boolean isEnabled(WebElement element) {
-		return wait.until(ExpectedConditions.visibilityOf(element)).isEnabled();
+		element = wait.until(ExpectedConditions.visibilityOf(element));
+		return element.isEnabled();
 	}
 	
 	public boolean isEnabled(By locator) {
-		return wait.until(ExpectedConditions.presenceOfElementLocated(locator)).isEnabled();
+		WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		return element.isEnabled();
+	}
+	
+	public void scrollIntoView(WebElement element) {
+		element = wait.until(ExpectedConditions.visibilityOf(element));
+		jsExecutor.executeScript("arguments[0].scrollIntoView(true)", element);
+	}
+	
+	public void scrollIntoView(By locator) {
+		WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		jsExecutor.executeScript("arguments[0].scrollIntoView(true)", element);
 	}
 	
 	public boolean waitForElementSelectionState(WebElement element, boolean state) throws Exception {
